@@ -1,8 +1,6 @@
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 
-const Header = styled.header`
+export default styled.header`
   padding: 12px;
   text-align: center;
 `
-
-export default Header

@@ -1,26 +1,26 @@
 import React from 'react'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 
 export default function HistoryEntry({ nameOfGame, players }) {
   return (
-    <HistoryEntryGrid>
+    <Wrapper>
       {nameOfGame}
       {players.map((player, index) => (
-        <HistroyPlayerFlexbox key={index}>
+        <Player key={index}>
           <span>{player.name}</span>
           <span>{player.score}</span>
-        </HistroyPlayerFlexbox>
+        </Player>
       ))}
-    </HistoryEntryGrid>
+    </Wrapper>
   )
 }
 
-const HistoryEntryGrid = styled.section`
+const Wrapper = styled.section`
   display: grid;
   gap: 10px;
 `
 
-const HistroyPlayerFlexbox = styled.div`
+const Player = styled.div`
   display: flex;
   justify-content: space-between;
 `
