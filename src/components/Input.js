@@ -3,18 +3,22 @@ import styled from 'styled-components/macro'
 
 export default function Input({ labelText, placeholder, name }) {
   return (
-    <InputGrid>
+    <Label>
       {labelText}
-      <input name={name} placeholder={placeholder} type="text" />
-    </InputGrid>
+      <InputStyled
+        name={name}
+        placeholder={placeholder}
+        type="text"
+      ></InputStyled>
+    </Label>
   )
 }
 
-const InputGrid = styled.label`
+const Label = styled.label`
   display: grid;
   gap: 4px;
+`
 
-  & input {
-    border: 2px solid #bbb;
-  }
+const InputStyled = styled.label`
+  border: 2px solid #bbb;
 `
