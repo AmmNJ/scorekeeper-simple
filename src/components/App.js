@@ -29,7 +29,6 @@ export default function App() {
 
   return (
     <AppLayout>
-      {/* conditional rendering */}
       {currentPage === 'play' && (
         <div>
           <GameForm onCreateGame={createGame} />
@@ -66,14 +65,6 @@ export default function App() {
       )}
     </AppLayout>
   )
-
-  function handleAddPlayer(name) {
-    setPlayers(oldPlayers => [...oldPlayers, { name, score: 0 }])
-  }
-
-  function resetAll() {
-    setPlayers([])
-  }
 
   function resetScores() {
     setPlayers(players.map(player => ({ ...player, score: 0 })))
