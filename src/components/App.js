@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import styled from 'styled-components/macro'
 import Button from './Button'
 import GameForm from './GameForm'
@@ -6,24 +7,38 @@ import Header from './Header'
 import HistoryEntry from './HistoryEntry'
 import Navigation from './Navigation'
 import Player from './Player'
-import PlayerForm from './PlayerForm'
 
 export default function App() {
   const [players, setPlayers] = useState([])
   const [currentPage, setCurrentPage] = useState('play')
+  const [nameOfGame, setNameOfGame] = useState('')
+  const [history, setHistory] = useState('')
+
+  function createGame({ nameOfGame, playerNames }) {
+    setNameOfGame(nameOfGame)
+    setPlayers(playerNames.map(name => ({ name, score: 0 })))
+    setCurrentPage('game')
+  }
+
+  function endGame() {
+    setHistory([{ players, nameOfGame, id: uuidv4() }, ...history])
+    setPlayers([])
+    setNameOfGame('')
+    setCurrentPage('play')
+  }
 
   return (
     <AppLayout>
       {/* conditional rendering */}
       {currentPage === 'play' && (
         <div>
-          <GameForm onCreateGame={data => console.log('onCreateGame', data)} />
+          <GameForm onCreateGame={createGame} />
         </div>
       )}
 
       {currentPage === 'game' && (
         <div>
-          <Header>Carcassonne</Header>
+          <Header>{nameOfGame}</Header>
           {players.map(({ name, score }, index) => (
             <Player
               key={name}
@@ -34,19 +49,15 @@ export default function App() {
             />
           ))}
           <Button onClick={resetScores}>Reset scores</Button>
-          <Button onClick={() => console.log('end game')}>End game</Button>
+          <Button onClick={endGame}>End game</Button>
         </div>
       )}
 
       {currentPage === 'history' && (
         <div>
-          <HistoryEntry
-            nameOfGame="Carcassonne"
-            players={[
-              { name: 'John Doe', score: 10 },
-              { name: 'Jane Doe', score: 20 },
-            ]}
-          />
+          {history.map(({ nameOfGame, players, id }) => (
+            <HistoryEntry key={id} nameOfGame={nameOfGame} players={players} />
+          ))}
         </div>
       )}
 
@@ -91,13 +102,4 @@ const AppLayout = styled.div`
   display: grid;
   gap: 20px;
   padding: 20px;
-`
-const DangerButton = styled(Button)`
-  background-color: mistyrose;
-  border: 1px solid red;
-`
-const ButtonGrid = styled.div`
-  display: grid;
-  gap: 5px;
-  grid-template-columns: 1fr 1fr;
 `
