@@ -15,7 +15,8 @@ body {
 input,
 button {
   font-size: inherit;
+}
+input {
   padding: 5px;
 }
-
 `
