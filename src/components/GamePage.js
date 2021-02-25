@@ -6,10 +6,10 @@ import Player from './Player'
 export default function GamePage({
   nameOfGame,
   players,
-  handleMinus,
-  handlePlus,
-  resetScores,
-  endGame,
+  onMinus,
+  onPlus,
+  onReset,
+  onEnd,
 }) {
   return (
     <GameWrapper>
@@ -19,13 +19,13 @@ export default function GamePage({
           key={name}
           name={name}
           score={score}
-          onMinus={() => handleMinus(index)}
-          onPlus={() => handlePlus(index)}
+          onMinus={() => onMinus(index)}
+          onPlus={() => onPlus(index)}
         />
       ))}
 
-      <Button onClick={resetScores}>Reset scores</Button>
-      <EndGame onClick={endGame}>End game</EndGame>
+      <Button onClick={onReset}>Reset scores</Button>
+      <EndGame onClick={onEnd}>End game</EndGame>
     </GameWrapper>
   )
 }

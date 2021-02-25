@@ -1,6 +1,6 @@
 import GameForm from './GameForm'
 
-export default function PlayPage({ createGame }) {
+export default function CreatePage({ createGame }) {
   return (
     <div>
       <GameForm onCreateGame={createGame} />
